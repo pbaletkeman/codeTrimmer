@@ -1,0 +1,131 @@
+Metadata-Version: 2.4
+Name: codetrimmer
+Version: 1.0.0
+Summary: A file formatting and whitespace normalization utility for source code
+Author-email: Pete Letkeman <pete@letkeman.ca>
+License: MIT
+Project-URL: Homepage, https://github.com/pbaletkeman/code-trimmer-python
+Project-URL: Documentation, https://github.com/pbaletkeman/code-trimmer-python/tree/main/python-docs
+Project-URL: Repository, https://github.com/pbaletkeman/code-trimmer-python
+Project-URL: Issues, https://github.com/pbaletkeman/code-trimmer-python/issues
+Keywords: code,trimmer,whitespace,formatting,linting
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: Topic :: Text Processing :: Filters
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: click>=8.0.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: colorama>=0.4.6
+Provides-Extra: http
+Requires-Dist: aiohttp>=3.8.0; extra == "http"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: coverage>=7.0.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+
+# Code Trimmer Python
+
+A file formatting and whitespace normalization utility for source code.
+
+**This is the Python 3.14+ implementation of Code Trimmer.**
+
+For detailed documentation, see [`./python-docs/`](./python-docs/).
+
+## Features
+
+- **Multi-format configuration** - YAML/JSON configuration files
+- **Regex-based custom rules** - Extensible formatting rules
+- **Binary file detection** - Intelligent skipping of binary files
+- **Comprehensive error codes** - 45+ error types with actionable messages
+- **Advanced reporting** - JSON/CSV/SQLite output formats
+- **Git integration** - Pre-commit hook generation
+- **Undo/restore capability** - Backup management
+- **Rich CLI experience** - Color output, progress, dry-run modes
+
+## Quick Start
+
+### Installation
+
+```bash
+pip install codetrimmer
+```
+
+### Basic Usage
+
+```bash
+# Trim files in current directory
+codetrimmer trim .
+
+# Dry-run mode (preview changes)
+codetrimmer trim . --dry-run
+
+# Process specific file types
+codetrimmer trim . --include "*.py,*.js"
+
+# Verbose output
+codetrimmer trim . --verbose
+```
+
+### Generate Pre-commit Hook
+
+```bash
+codetrimmer generate-hook .
+```
+
+### Undo Changes
+
+```bash
+codetrimmer undo .
+```
+
+## Configuration
+
+Create a `.codetrimmer.yaml` file in your project root:
+
+```yaml
+codetrimmer:
+  include: "*.{py,js,java}"
+  exclude: "*.min.js,node_modules/**"
+  max-consecutive-blank-lines: 2
+  ensure-final-newline: true
+  trim-trailing-whitespace: true
+  create-backups: true
+```
+
+## Documentation
+
+- [Quick Start Guide](./python-docs/QUICKSTART.md)
+- [Configuration Reference](./python-docs/CONFIGURATION.md)
+- [CLI Reference](./python-docs/CLI_REFERENCE.md)
+- [Error Codes](./python-docs/ERROR_CODES.md)
+- [Architecture](./python-docs/ARCHITECTURE.md)
+- [Troubleshooting](./python-docs/TROUBLESHOOTING.md)
+
+## Requirements
+
+- Python 3.12+
+- click >= 8.0.0
+- pyyaml >= 6.0
+- pydantic >= 2.0.0
+- colorama >= 0.4.6
+
+## License
+
+MIT License
+
+## Contributing
+
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
