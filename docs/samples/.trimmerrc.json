@@ -1,0 +1,49 @@
+{
+  "include": "*",
+  "exclude": "",
+  "includeHidden": false,
+  "followSymlinks": false,
+  "maxConsecutiveBlankLines": 2,
+  "ensureFinalNewline": true,
+  "trimTrailingWhitespace": true,
+  "maxFileSize": 5242880,
+  "maxFiles": 50,
+  "noLimits": false,
+  "dryRun": false,
+  "createBackups": true,
+  "failFast": false,
+  "verbose": false,
+  "quiet": false,
+  "noColor": false,
+  "rules": [
+    {
+      "name": "trailing-whitespace",
+      "description": "Remove trailing whitespace from all lines",
+      "pattern": "[ \\t]+$",
+      "replacement": "",
+      "action": "replace",
+      "enabled": true
+    },
+    {
+      "name": "blank-line-normalization",
+      "description": "Reduce consecutive blank lines",
+      "pattern": "(\\n\\s*){3,}",
+      "replacement": "\\n\\n",
+      "action": "replace",
+      "enabled": true
+    },
+    {
+      "name": "final-newline",
+      "description": "Ensure file ends with exactly one newline",
+      "pattern": "\\n*$",
+      "replacement": "\\n",
+      "action": "replace",
+      "enabled": true
+    }
+  ],
+  "report": {
+    "format": "json",
+    "outputPath": "codetrimmer-report.json",
+    "endpoint": null
+  }
+}

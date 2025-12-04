@@ -1,0 +1,138 @@
+# Code Trimmer Configuration File
+# YAML Format Example
+# Location: .trimmerrc or .trimmerrc.yaml in project root
+# Documentation: https://github.com/pbaletkeman/codeTrimmer
+
+# =============================================================================
+# FILE FILTERING OPTIONS
+# =============================================================================
+
+# File extensions to include (comma-separated)
+# Use "*" to include all files
+# Example: "java,py,js,ts,md"
+include: "*"
+
+# File extensions/patterns to exclude (comma-separated)
+# Supports wildcards and patterns
+# Example: "*.min.js,*.lock,node_modules"
+exclude: ""
+
+# Include hidden files (starting with .)
+# Default: false
+includeHidden: false
+
+# Follow symbolic links
+# Default: false
+followSymlinks: false
+
+# =============================================================================
+# WHITESPACE RULES
+# =============================================================================
+
+# Maximum consecutive blank lines allowed
+# Lines beyond this limit will be removed
+# Default: 2
+maxConsecutiveBlankLines: 2
+
+# Ensure file ends with exactly one newline
+# Default: true
+ensureFinalNewline: true
+
+# Trim trailing whitespace from all lines
+# Default: true
+trimTrailingWhitespace: true
+
+# =============================================================================
+# PERFORMANCE LIMITS
+# =============================================================================
+
+# Maximum file size to process (in bytes)
+# Default: 5242880 (5MB)
+maxFileSize: 5242880
+
+# Maximum number of files to process
+# Default: 50
+maxFiles: 50
+
+# Disable all limits (process all files regardless of size/count)
+# Use with caution on large projects
+# Default: false
+noLimits: false
+
+# =============================================================================
+# OPERATION MODES
+# =============================================================================
+
+# Dry-run mode: preview changes without modifying files
+# Default: false
+dryRun: false
+
+# Create backup files (.bak) before modifying
+# Default: true
+createBackups: true
+
+# Stop processing on first error
+# Default: false
+failFast: false
+
+# =============================================================================
+# OUTPUT OPTIONS
+# =============================================================================
+
+# Enable verbose output with detailed processing info
+# Default: false
+verbose: false
+
+# Suppress all non-error output
+# Default: false
+quiet: false
+
+# Disable colored terminal output
+# Default: false
+noColor: false
+
+# =============================================================================
+# CUSTOM TRIMMING RULES
+# =============================================================================
+
+# Define custom regex-based trimming rules
+# Each rule must have: name, pattern, and optionally replacement, description, enabled
+rules:
+  # Remove trailing whitespace (built-in, shown as example)
+  - name: "trailing-whitespace"
+    description: "Remove trailing whitespace from all lines"
+    pattern: "[ \\t]+$"
+    replacement: ""
+    action: "replace"
+    enabled: true
+
+  # Normalize multiple blank lines to maximum of 2
+  - name: "blank-line-normalization"
+    description: "Reduce consecutive blank lines"
+    pattern: "(\\n\\s*){3,}"
+    replacement: "\\n\\n"
+    action: "replace"
+    enabled: true
+
+  # Ensure file ends with single newline
+  - name: "final-newline"
+    description: "Ensure file ends with exactly one newline"
+    pattern: "\\n*$"
+    replacement: "\\n"
+    action: "replace"
+    enabled: true
+
+# =============================================================================
+# REPORTING OPTIONS
+# =============================================================================
+
+report:
+  # Report format: json, csv, or sqlite
+  format: "json"
+
+  # Output path for report file
+  # Leave empty to output to stdout
+  outputPath: "codetrimmer-report.json"
+
+  # HTTP endpoint to send reports (optional)
+  # endpoint: "https://your-metrics-server.com/api/stats"

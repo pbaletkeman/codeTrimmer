@@ -28,6 +28,16 @@ class CodeTrimmerCommandsTest {
 
   @Mock private CodeTrimmerConfig config;
 
+  @Mock private com.codetrimmer.config.ConfigurationLoader configLoader;
+
+  @Mock private com.codetrimmer.report.ReportGenerator reportGenerator;
+
+  @Mock private com.codetrimmer.service.HookGenerator hookGenerator;
+
+  @Mock private com.codetrimmer.service.UndoService undoService;
+
+  @Mock private com.codetrimmer.service.DiffGenerator diffGenerator;
+
   @InjectMocks private CodeTrimmerCommands commands;
 
   @TempDir private Path tempDir;
@@ -35,6 +45,9 @@ class CodeTrimmerCommandsTest {
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
+    // Setup default mock for configLoader to return a default config
+    when(configLoader.loadConfiguration(anyString()))
+        .thenReturn(new com.codetrimmer.config.TrimmerConfig());
   }
 
   // ============================================
