@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.12.3">
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/model/BinaryFileDetector.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/model/FileProcessingResult.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/model/ProcessingStatistics.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/options/TrimOptions.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/CodeTrimmerApplication.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/service/FileTrimmer.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/service/FileProcessingService.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/shell/CodeTrimmerCommands.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/shell/TrimOptions.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/command/CodeTrimmerCommands.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/config/CodeTrimmerConfig.java">
+</file>
+<file name="/home/runner/work/codeTrimmer/codeTrimmer/src/main/java/com/codetrimmer/util/ColorOutput.java">
+</file>
+</checkstyle>
