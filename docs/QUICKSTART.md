@@ -27,7 +27,7 @@ java -jar target/code-trimmer-1.0.0.jar
 
 You should see:
 
-```
+```shell
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -49,7 +49,7 @@ code-trimmer> trim .
 
 Output:
 
-```
+```shell
 Processing directory: /home/user/code-trimmer
 Files found: 547
 Files processed: 234

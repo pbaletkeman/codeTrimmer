@@ -135,7 +135,7 @@ code-trimmer> trim /path/to/project --verbose
 
 ### Command Structure
 
-```
+```shell
 COMMAND [ARGUMENTS] [OPTIONS]
 
 COMMAND          - The action to perform (trim, version, help-trim)
@@ -151,7 +151,7 @@ Process files in a directory with optional filtering and configuration.
 
 **Syntax:**
 
-```
+```shell
 trim <directory> [OPTIONS]
 ```
 
@@ -161,7 +161,7 @@ trim <directory> [OPTIONS]
 
 **Output:**
 
-```
+```shell
 Processing directory: /project/src
   Total files found: 1,234
   Files processed: 987
@@ -212,13 +212,13 @@ Show the application version and build information.
 
 **Syntax:**
 
-```
+```shell
 version
 ```
 
 **Output:**
 
-```
+```shell
 Code Trimmer v1.0.0
 Build: 2025.1
 Built on: Java 21.0.0
@@ -236,13 +236,13 @@ Display detailed help for the trim command.
 
 **Syntax:**
 
-```
+```shell
 help-trim
 ```
 
 **Output:**
 
-```
+```shell
 NAME
     trim - Process files to trim whitespace and normalize formatting
 
@@ -536,7 +536,7 @@ TRIM_MAX_SIZE=10485760
 
 ### Component Overview
 
-```
+```shell
 ┌─────────────────────────────────────────┐
 │       Spring Shell Interactive UI       │
 ├─────────────────────────────────────────┤
@@ -565,7 +565,7 @@ TRIM_MAX_SIZE=10485760
 
 ### Data Flow
 
-```
+```shell
 User Input (CLI)
   ↓
 Spring Shell Parser

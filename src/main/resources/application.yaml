@@ -1,0 +1,32 @@
+spring:
+  shell:
+    command:
+      scan-enabled: true
+    interactive:
+      enabled: true
+  application:
+    name: Code Trimmer
+
+codetrimmer:
+  include: "*"
+  exclude: ""
+  include-hidden: false
+  follow-symlinks: false
+  max-consecutive-blank-lines: 2
+  ensure-final-newline: true
+  trim-trailing-whitespace: true
+  max-file-size: 5242880
+  max-files: 50
+  no-limits: false
+  dry-run: false
+  create-backups: true
+  fail-fast: false
+  verbose: false
+  quiet: false
+  no-color: false
+  disable-color-for-pipe: true
+
+logging:
+  level:
+    root: INFO
+    com.codetrimmer: INFO

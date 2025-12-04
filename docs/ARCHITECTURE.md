@@ -168,7 +168,7 @@ private FileProcessingResult processFile(Path filePath)
 
 **Processing Logic**:
 
-```
+```shell
 processDirectory(path)
 ├── Validate directory
 ├── Collect files recursively
@@ -199,7 +199,7 @@ processDirectory(path)
 
 **Algorithm**:
 
-```
+```shell
 trim(content)
 ├── Split into lines
 ├── For each line:
@@ -400,35 +400,35 @@ graph TD
 
 ### Service Architecture
 
-```
+```shell
 ┌─────────────────────────────────┐
 │   Application (Spring Boot)     │
 │                                 │
 ├─ CodeTrimmerCommands            │
-│  ├─ trim(TrimOptions)          │
-│  ├─ version()                  │
-│  └─ helpTrim()                 │
+│  ├─ trim(TrimOptions)           │
+│  ├─ version()                   │
+│  └─ helpTrim()                  │
 │                                 │
 ├─ FileProcessingService          │
-│  ├─ processDirectory()         │
-│  ├─ processFiles()             │
-│  ├─ processFile()              │
-│  └─ getStatistics()            │
+│  ├─ processDirectory()          │
+│  ├─ processFiles()              │
+│  ├─ processFile()               │
+│  └─ getStatistics()             │
 │                                 │
 ├─ FileTrimmer                    │
-│  ├─ trim()                     │
-│  ├─ trimLine()                 │
-│  └─ normalizeBlanks()          │
+│  ├─ trim()                      │
+│  ├─ trimLine()                  │
+│  └─ normalizeBlanks()           │
 │                                 │
 ├─ Data Models                    │
-│  ├─ ProcessingStatistics       │
-│  ├─ FileProcessingResult       │
-│  └─ TrimOptions                │
+│  ├─ ProcessingStatistics        │
+│  ├─ FileProcessingResult        │
+│  └─ TrimOptions                 │
 │                                 │
-└─ Configuration                  │
-   ├─ application.yml            │
-   ├─ Environment vars           │
-   └─ Spring properties          │
+├─ Configuration                  │
+│  ├─ application.yml             │
+│  ├─ Environment vars            │
+│  └─ Spring properties           │
 └─────────────────────────────────┘
 ```
 
@@ -553,7 +553,7 @@ stats.getStatistics();
 
 ### Spring Boot Integration
 
-```
+```shell
 @SpringBootApplication
 ├── @Component: FileProcessingService
 ├── @Component: FileTrimmer
@@ -564,7 +564,7 @@ stats.getStatistics();
 
 ### Spring Shell Integration
 
-```
+```shell
 @ShellComponent: CodeTrimmerCommands
 ├── @ShellMethod: trim
 ├── @ShellMethod: version

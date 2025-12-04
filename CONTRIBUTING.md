@@ -108,7 +108,7 @@ public FileProcessingResult processFile(Path filePath) throws IOException {
 
 **Example:**
 
-```
+```shell
 Add dry-run mode to preview changes before processing
 
 - Implement --dry-run flag in TrimOptions
@@ -171,7 +171,7 @@ mvn test jacoco:report
 
 ## Project Structure
 
-```
+```shell
 code-trimmer/
 ├── src/
 │   ├── main/java/com/codetrimmer/

@@ -18,59 +18,59 @@ All Code Trimmer errors use the format `CT-XXXX`. Below is a complete reference:
 
 ### Configuration Errors (CT-0001 to CT-0009)
 
-| Code | Title | Description | Solution |
-|------|-------|-------------|----------|
-| CT-0001 | Invalid configuration file | Configuration file format is invalid | Check YAML/JSON syntax |
-| CT-0002 | Configuration file not found | Specified config file does not exist | Verify file path |
-| CT-0003 | Invalid configuration value | Configuration value is out of range | Check value constraints |
-| CT-0004 | Invalid rule definition | Custom rule is malformed | Review rule syntax |
-| CT-0005 | Invalid regex pattern | Regex pattern in rule is invalid | Test regex pattern |
+| Code    | Title                        | Description                          | Solution                |
+| ------- | ---------------------------- | ------------------------------------ | ----------------------- |
+| CT-0001 | Invalid configuration file   | Configuration file format is invalid | Check YAML/JSON syntax  |
+| CT-0002 | Configuration file not found | Specified config file does not exist | Verify file path        |
+| CT-0003 | Invalid configuration value  | Configuration value is out of range  | Check value constraints |
+| CT-0004 | Invalid rule definition      | Custom rule is malformed             | Review rule syntax      |
+| CT-0005 | Invalid regex pattern        | Regex pattern in rule is invalid     | Test regex pattern      |
 
 ### File Operation Errors (CT-0010 to CT-0039)
 
-| Code | Title | Description | Solution |
-|------|-------|-------------|----------|
-| CT-0010 | File not found | Specified file or directory does not exist | Verify path |
-| CT-0011 | File read error | Cannot read file contents | Check permissions |
-| CT-0012 | File write error | Cannot write to file | Check disk space |
-| CT-0013 | Permission denied | Insufficient permissions | Run with proper access |
-| CT-0014 | Directory not accessible | Cannot access directory | Check directory permissions |
-| CT-0015 | File too large | File exceeds maximum size limit | Increase maxFileSize |
-| CT-0016 | Binary file skipped | Binary file detected | Normal behavior |
+| Code    | Title                    | Description                                | Solution                    |
+| ------- | ------------------------ | ------------------------------------------ | --------------------------- |
+| CT-0010 | File not found           | Specified file or directory does not exist | Verify path                 |
+| CT-0011 | File read error          | Cannot read file contents                  | Check permissions           |
+| CT-0012 | File write error         | Cannot write to file                       | Check disk space            |
+| CT-0013 | Permission denied        | Insufficient permissions                   | Run with proper access      |
+| CT-0014 | Directory not accessible | Cannot access directory                    | Check directory permissions |
+| CT-0015 | File too large           | File exceeds maximum size limit            | Increase maxFileSize        |
+| CT-0016 | Binary file skipped      | Binary file detected                       | Normal behavior             |
 
 ### Backup/Restore Errors (CT-0040 to CT-0049)
 
-| Code | Title | Description | Solution |
-|------|-------|-------------|----------|
-| CT-0040 | Backup creation failed | Failed to create backup file | Check disk space |
-| CT-0041 | Restore failed | Failed to restore from backup | Check permissions |
-| CT-0042 | Backup file missing | Backup file not found for restore | Verify backup exists |
-| CT-0043 | Backup file corrupted | Backup file is corrupted | Use Git to restore |
+| Code    | Title                  | Description                       | Solution             |
+| ------- | ---------------------- | --------------------------------- | -------------------- |
+| CT-0040 | Backup creation failed | Failed to create backup file      | Check disk space     |
+| CT-0041 | Restore failed         | Failed to restore from backup     | Check permissions    |
+| CT-0042 | Backup file missing    | Backup file not found for restore | Verify backup exists |
+| CT-0043 | Backup file corrupted  | Backup file is corrupted          | Use Git to restore   |
 
 ### Hook Generation Errors (CT-0050 to CT-0059)
 
-| Code | Title | Description | Solution |
-|------|-------|-------------|----------|
-| CT-0050 | Hook generation failed | Failed to generate pre-commit hook | Check .git folder |
-| CT-0051 | Git directory not found | .git directory not found | Run from Git repo root |
-| CT-0052 | Hook already exists | Pre-commit hook already exists | Use --force flag |
+| Code    | Title                   | Description                        | Solution               |
+| ------- | ----------------------- | ---------------------------------- | ---------------------- |
+| CT-0050 | Hook generation failed  | Failed to generate pre-commit hook | Check .git folder      |
+| CT-0051 | Git directory not found | .git directory not found           | Run from Git repo root |
+| CT-0052 | Hook already exists     | Pre-commit hook already exists     | Use --force flag       |
 
 ### Report Errors (CT-0060 to CT-0069)
 
-| Code | Title | Description | Solution |
-|------|-------|-------------|----------|
-| CT-0060 | Report generation failed | Failed to generate report | Check output path |
-| CT-0061 | Invalid report format | Unsupported report format | Use json, csv, or sqlite |
-| CT-0062 | Report endpoint failed | Failed to send report | Check network/endpoint |
-| CT-0063 | SQLite database error | Error writing to SQLite | Check disk space |
+| Code    | Title                    | Description               | Solution                 |
+| ------- | ------------------------ | ------------------------- | ------------------------ |
+| CT-0060 | Report generation failed | Failed to generate report | Check output path        |
+| CT-0061 | Invalid report format    | Unsupported report format | Use json, csv, or sqlite |
+| CT-0062 | Report endpoint failed   | Failed to send report     | Check network/endpoint   |
+| CT-0063 | SQLite database error    | Error writing to SQLite   | Check disk space         |
 
 ### General Errors (CT-0090 to CT-0099)
 
-| Code | Title | Description | Solution |
-|------|-------|-------------|----------|
-| CT-0090 | Unknown error | An unexpected error occurred | Check logs |
-| CT-0091 | Operation cancelled | Operation was cancelled | Retry operation |
-| CT-0092 | Disk full | Insufficient disk space | Free disk space |
+| Code    | Title               | Description                  | Solution        |
+| ------- | ------------------- | ---------------------------- | --------------- |
+| CT-0090 | Unknown error       | An unexpected error occurred | Check logs      |
+| CT-0091 | Operation cancelled | Operation was cancelled      | Retry operation |
+| CT-0092 | Disk full           | Insufficient disk space      | Free disk space |
 
 ---
 
@@ -81,6 +81,7 @@ All Code Trimmer errors use the format `CT-XXXX`. Below is a complete reference:
 **Problem:** Error CT-0010 when trying to process a directory.
 
 **Solution:**
+
 ```bash
 # Verify the directory exists
 ls -la /path/to/directory
@@ -94,6 +95,7 @@ java -jar code-trimmer.jar trim /absolute/path/to/project
 **Problem:** Error CT-0013 when processing files.
 
 **Solution:**
+
 ```bash
 # Check file permissions
 ls -la file.txt
@@ -109,6 +111,7 @@ chmod 644 file.txt
 **Problem:** "Files processed: 0" even though directory has files.
 
 **Solutions:**
+
 ```bash
 # Check include patterns
 java -jar code-trimmer.jar trim . --include "java,py,js"
@@ -125,6 +128,7 @@ java -jar code-trimmer.jar trim . --no-limits
 **Problem:** Text files are being skipped as binary.
 
 **Solution:**
+
 - Check if files contain NULL bytes
 - Verify file encoding is UTF-8
 - Files with certain extensions are automatically skipped
@@ -134,6 +138,7 @@ java -jar code-trimmer.jar trim . --no-limits
 **Problem:** No .bak files appear after processing.
 
 **Solution:**
+
 ```bash
 # Ensure backup flag is set
 java -jar code-trimmer.jar trim . --backup
@@ -151,6 +156,7 @@ createBackups: true
 **Problem:** CT-0001 error when loading configuration.
 
 **Solution:**
+
 ```yaml
 # Check indentation (use spaces, not tabs)
 rules:
@@ -159,7 +165,7 @@ rules:
 
 # Avoid:
 rules:
-	- name: "rule1"  # Tab character - WRONG
+  - name: "rule1"  # Tab character - WRONG
 ```
 
 ### Invalid regex pattern
@@ -167,11 +173,12 @@ rules:
 **Problem:** CT-0005 error for custom rules.
 
 **Solution:**
+
 ```yaml
 # Test your regex at https://regex101.com
 rules:
   - name: "test"
-    pattern: "\\s+$"  # Double escape backslashes in YAML
+    pattern: "\\s+$" # Double escape backslashes in YAML
 ```
 
 ### Configuration not loading
@@ -179,6 +186,7 @@ rules:
 **Problem:** Settings from .trimmerrc not being applied.
 
 **Solution:**
+
 ```bash
 # Validate configuration file
 java -jar code-trimmer.jar validate-config --config-path .trimmerrc
@@ -196,6 +204,7 @@ java -jar code-trimmer.jar trim-config . --config-file .trimmerrc
 **Problem:** Processing takes too long for large projects.
 
 **Solutions:**
+
 ```bash
 # Limit file count
 java -jar code-trimmer.jar trim . --max-files 100
@@ -215,6 +224,7 @@ java -jar code-trimmer.jar trim . --exclude "node_modules,build,dist"
 **Problem:** Java OutOfMemoryError during processing.
 
 **Solution:**
+
 ```bash
 # Increase JVM heap size
 java -Xmx1g -jar code-trimmer.jar trim .
@@ -232,6 +242,7 @@ java -jar code-trimmer.jar trim . --max-size 2097152
 **Problem:** Files show as modified after processing.
 
 **Solution:**
+
 ```bash
 # Configure Git to handle line endings
 git config --global core.autocrlf true
@@ -242,6 +253,7 @@ git config --global core.autocrlf true
 **Problem:** Pre-commit hook not executing.
 
 **Solution:**
+
 ```bash
 # Make hook executable
 chmod +x .git/hooks/pre-commit
@@ -255,6 +267,7 @@ ls -la .git/hooks/pre-commit
 **Problem:** Paths not resolving correctly in WSL.
 
 **Solution:**
+
 ```bash
 # Use WSL paths, not Windows paths
 java -jar code-trimmer.jar trim /home/user/project

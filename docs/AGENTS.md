@@ -38,7 +38,7 @@ exit $?  # Return exit code
 
 ### Exit Codes
 
-```
+```shell
 0   - Success, all files processed
 1   - Error during processing
 2   - Invalid arguments
@@ -357,7 +357,7 @@ exit 4
 
 ### Error Detection Script
 
-```bash
+````bash
 #!/bin/bash
 
 java -jar code-trimmer-1.0.0.jar trim /project --quiet
@@ -388,7 +388,7 @@ case $EXIT_CODE in
         exit $EXIT_CODE
         ;;
 esac
-```
+```shell
 
 ## Monitoring and Logging
 
@@ -396,11 +396,11 @@ esac
 
 Code Trimmer produces structured logs suitable for aggregation:
 
-```
+```shell
 2025-01-15T10:30:45.123Z [main] INFO com.codetrimmer.service.FileProcessingService - Processing directory: /project
 2025-01-15T10:30:45.234Z [main] INFO com.codetrimmer.service.FileProcessingService - Found 1234 files
 2025-01-15T10:30:47.456Z [main] INFO com.codetrimmer.service.FileProcessingService - Processing complete
-```
+````
 
 ### Metrics Collection
 
