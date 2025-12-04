@@ -1,10 +1,8 @@
 """Git pre-commit hook generator service."""
 
 import logging
-
 import stat
 from pathlib import Path
-
 
 from codetrimmer.error.codes import ErrorCode
 from codetrimmer.error.exceptions import CodeTrimmerException

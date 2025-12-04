@@ -2,7 +2,7 @@
 
 A file formatting and whitespace normalization utility for source code.
 
-**This is the Python 3.14+ implementation of Code Trimmer.**
+**This is the Python 3.12+ implementation of Code Trimmer.**
 
 For detailed documentation, see [`./python-docs/`](./python-docs/).
 

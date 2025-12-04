@@ -7,7 +7,6 @@ import logging
 import sqlite3
 from pathlib import Path
 
-
 from codetrimmer.error.codes import ErrorCode
 from codetrimmer.error.exceptions import CodeTrimmerException
 from codetrimmer.model.statistics import ProcessingStatistics
