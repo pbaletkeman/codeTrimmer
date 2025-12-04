@@ -6,7 +6,16 @@ Documentation for autonomous agents and AI system interactions with Code Trimmer
 
 This document describes how autonomous agents, AI systems, and automation tools can integrate with and utilize Code Trimmer for automated code formatting and cleanup operations.
 
-## Agent Integration
+Code Trimmer is available in two independent implementations:
+
+- **Java 17 LTS** (reference implementation)
+- **Python 3.12+** (parallel implementation)
+
+See the appropriate section below for your implementation.
+
+---
+
+## Java Agent Integration
 
 ### REST API Integration
 
@@ -476,4 +485,291 @@ For agent integration issues:
 
 ---
 
-**Version**: 1.0.0 | **Last Updated**: December 2025
+## Python Agent Integration
+
+The Python 3.12+ implementation provides the same functionality as the Java version but uses idiomatic Python patterns and the Click CLI framework.
+
+**Location:** `/code-trimmer-python/` directory (separate from Java implementation)
+
+### Project Structure
+
+```
+code-trimmer-python/
+├── codetrimmer/
+│   ├── cli/commands.py           # Click CLI commands
+│   ├── service/file_processor.py # Core processing service
+│   ├── config/loader.py          # Configuration loading
+│   └── ...
+├── tests/                        # Comprehensive test suite (>85% coverage)
+├── pyproject.toml               # Python project config
+├── requirements.txt             # Dependencies
+└── python-docs/                 # Python-specific documentation
+```
+
+### Command-Line Integration
+
+Agents can invoke Code Trimmer as a subprocess:
+
+```bash
+#!/bin/bash
+# Python agent invocation
+
+python -m codetrimmer trim /project \
+  --include "*.py,*.md" \
+  --exclude "venv,dist" \
+  --no-color \
+  --quiet
+
+exit $?  # Return exit code
+```
+
+### Python API for Agent Development
+
+Agents written in Python can use Code Trimmer programmatically:
+
+```python
+from codetrimmer.service.file_processor import FileProcessingService
+from codetrimmer.cli.options import TrimOptions
+from codetrimmer.config.models import TrimmerConfig
+
+class CodeFormattingAgent:
+    def __init__(self):
+        self.service = FileProcessingService()
+
+    def format_project(self, directory, extensions):
+        config = TrimmerConfig(
+            directory=directory,
+            include=extensions,
+            exclude="venv,dist,.git",
+            max_file_size=5242880,
+            max_files=500,
+            create_backups=True,
+            verbose=True
+        )
+
+        stats = self.service.process_directory(config)
+
+        print(f"Processed: {stats.files_processed}")
+        print(f"Modified: {stats.files_modified}")
+        print(f"Errors: {stats.files_with_errors}")
+
+        return 0 if stats.files_with_errors == 0 else 1
+
+# Usage
+agent = CodeFormattingAgent()
+exit_code = agent.format_project("/project", "*.py,*.md")
+exit(exit_code)
+```
+
+### Exit Codes (Python Version)
+
+Same as Java version for compatibility:
+
+```shell
+0   - Success, all files processed
+1   - Error during processing
+2   - Invalid arguments
+3   - File not found
+4   - Permission denied
+```
+
+### Environment Variables (Python)
+
+```bash
+# Configuration
+export CODETRIMMER_CONFIG=/etc/codetrimmer/.codetrimmer.yaml
+export CODETRIMMER_INCLUDE="*.py,*.md"
+export CODETRIMMER_EXCLUDE="venv,dist"
+
+# Output control
+export CODETRIMMER_NO_COLOR=1
+export CODETRIMMER_QUIET=1
+export CODETRIMMER_VERBOSE=1
+
+# Processing limits
+export CODETRIMMER_MAX_FILES=1000
+export CODETRIMMER_MAX_FILE_SIZE=5242880
+```
+
+### Docker Integration (Python)
+
+**Dockerfile**:
+
+```dockerfile
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Copy application
+COPY code-trimmer-python/ /app/
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Mount code volume
+VOLUME ["/code"]
+
+WORKDIR /code
+
+# Default command
+ENTRYPOINT ["python", "-m", "codetrimmer"]
+CMD ["trim", ".", "--verbose"]
+```
+
+**Usage**:
+
+```bash
+# Build image
+docker build -f Dockerfile.python -t code-trimmer-python:latest .
+
+# Run container
+docker run --rm \
+  -v /path/to/project:/code \
+  code-trimmer-python:latest \
+  trim . --verbose
+```
+
+### CI/CD Pipeline (Python)
+
+**GitHub Actions Example**:
+
+```yaml
+name: Python Code Quality
+on: [pull_request, push]
+
+jobs:
+  trim:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          cd code-trimmer-python
+          pip install -r requirements.txt
+
+      - name: Check Formatting
+        run: |
+          cd code-trimmer-python
+          python -m codetrimmer trim . --dry-run --quiet
+          if git diff --exit-code; then
+            echo "✓ Code formatting OK"
+          else
+            echo "✗ Code needs formatting"
+            exit 1
+          fi
+
+      - name: Fix and Commit (if allowed)
+        if: failure()
+        run: |
+          cd code-trimmer-python
+          python -m codetrimmer trim .
+          git config user.email "bot@example.com"
+          git config user.name "Format Bot"
+          git add -A
+          git commit -m "[PYTHON] chore: auto-format code"
+          git push
+```
+
+### Testing Integration (Python)
+
+```bash
+#!/bin/bash
+# Run Python tests with coverage
+
+cd code-trimmer-python
+
+# Install test dependencies
+pip install pytest pytest-cov flake8 black isort
+
+# Run tests with coverage
+pytest tests/ --cov=codetrimmer --cov-report=term-missing
+
+# Code quality checks
+flake8 codetrimmer tests/
+black --check codetrimmer tests/
+isort --check codetrimmer tests/
+```
+
+### Important: Agent Boundaries
+
+**CRITICAL:** Python agent must respect strict project boundaries:
+
+✅ **DO:**
+
+- Modify files only in `/code-trimmer-python/` directory
+- Use Python 3.12+ idioms and best practices
+- Test in isolated Python environment (`venv` or Docker)
+- Commit with prefix `[PYTHON]` to distinguish from Java changes
+
+❌ **DON'T:**
+
+- Touch Java files in `/src/main/java/` or `/src/test/java/`
+- Modify `pom.xml` or Java configuration files
+- Import or reference Java code
+- Delete or rename the Java version directory
+
+### Best Practices for Python Agents
+
+1. **Always use `--dry-run` first**: Verify changes before applying
+2. **Test in `venv`**: Use isolated Python environment for testing
+3. **Run linting**: Execute flake8, black, isort before committing
+4. **Check coverage**: Maintain >85% test coverage requirement
+5. **Validate git status**: Ensure only Python files are modified
+6. **Use `--quiet` mode**: For CI/CD and automated systems
+7. **Add timeouts**: Prevent hanging processes
+8. **Handle errors appropriately**: Check exit codes
+9. **Monitor performance**: Track execution time and resource usage
+10. **Respect boundaries**: Never modify Java code or shared configs
+
+### Troubleshooting Python Agent Integration
+
+**Issue: Module not found**
+
+**Solution**:
+
+- Ensure Python 3.12+ is installed
+- Install dependencies: `pip install -r requirements.txt`
+- Set PYTHONPATH: `export PYTHONPATH=/code-trimmer-python:$PYTHONPATH`
+
+**Issue: Permission denied**
+
+**Solution**:
+
+- Run with appropriate user permissions
+- Check file/directory ownership
+- Verify read/write access in `/code-trimmer-python/`
+
+**Issue: Memory errors**
+
+**Solution**:
+
+- Reduce scope with `--max-files` and `--max-file-size`
+- Process in batches
+- Use `--quiet` mode to reduce memory overhead
+
+**Issue: Test failures**
+
+**Solution**:
+
+- Run tests with verbose output: `pytest -v tests/`
+- Check coverage: `pytest --cov=codetrimmer --cov-report=term-missing`
+- Verify dependencies: `pip install -r requirements.txt`
+
+### Reference
+
+For comprehensive Python implementation details, see:
+
+- `code-trimmer-python/python-docs/ARCHITECTURE.md` - Design and structure
+- `code-trimmer-python/python-docs/CLI_REFERENCE.md` - All CLI options
+- `code-trimmer-python/python-docs/ERROR_CODES.md` - Error handling
+- `/docs/PRD_CODE_TRIMMER_PYTHON.md` - Complete specification
+
+---
+
+**Version**: 2.0 | **Last Updated**: December 2025 | **Java & Python Implementations**
