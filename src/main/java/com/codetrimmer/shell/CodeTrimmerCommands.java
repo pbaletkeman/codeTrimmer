@@ -172,7 +172,7 @@ public class CodeTrimmerCommands {
 
   @Command(command = "version", description = "Show application version")
   public void version() {
-    System.out.println("Code Trimmer v2.0.0");
+    System.out.println(com.codetrimmer.AppConstants.VERSION_STRING);
   }
 
   @Command(command = "generate-hook", description = "Generate Git pre-commit hook")

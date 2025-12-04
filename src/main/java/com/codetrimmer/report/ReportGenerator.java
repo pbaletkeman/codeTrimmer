@@ -112,8 +112,8 @@ public class ReportGenerator {
         StringWriter writer = new StringWriter();
 
         // CSV Header
-        writer.write("timestamp,files_scanned,files_modified,files_skipped,");
-        writer.write("lines_trimmed,blank_lines_removed,execution_time_ms\n");
+        String header = "timestamp,files_scanned,files_modified,files_skipped,"
+            + "lines_trimmed,blank_lines_removed,execution_time_ms\n";
 
         // CSV Data
         writer.write(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
@@ -131,19 +131,19 @@ public class ReportGenerator {
         writer.write(String.valueOf(stats.getExecutionTimeMs()));
         writer.write("\n");
 
-        String csv = writer.toString();
+        String dataLine = writer.toString();
 
         if (outputPath != null && !outputPath.trim().isEmpty()) {
             Path path = Paths.get(outputPath);
             if (Files.exists(path)) {
                 // Append to existing file (without header)
-                String dataOnly = csv.substring(csv.indexOf('\n') + 1);
-                Files.writeString(path, Files.readString(path) + dataOnly);
+                Files.write(path, dataLine.getBytes(java.nio.charset.StandardCharsets.UTF_8),
+                    java.nio.file.StandardOpenOption.APPEND);
             } else {
-                Files.writeString(path, csv);
+                Files.writeString(path, header + dataLine);
             }
         } else {
-            System.out.println(csv);
+            System.out.println(header + dataLine);
         }
     }
 

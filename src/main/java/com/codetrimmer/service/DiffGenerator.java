@@ -160,13 +160,13 @@ public class DiffGenerator {
             } else {
                 // Lines differ - check if it's a modification or insertion/deletion
                 int lookAhead = findNextMatch(original, modified, origIdx, modIdx);
-                if (lookAhead == 1) {
+                if (lookAhead == CHANGE_MODIFICATION) {
                     // Line was modified
                     result.add(new DiffLine(DiffLine.Type.REMOVED, original[origIdx], origIdx + 1));
                     result.add(new DiffLine(DiffLine.Type.ADDED, modified[modIdx], modIdx + 1));
                     origIdx++;
                     modIdx++;
-                } else if (lookAhead == 2) {
+                } else if (lookAhead == CHANGE_DELETION) {
                     // Line was deleted
                     result.add(new DiffLine(DiffLine.Type.REMOVED, original[origIdx], origIdx + 1));
                     origIdx++;
@@ -182,24 +182,31 @@ public class DiffGenerator {
     }
 
     /**
+     * Change type indicators for diff algorithm.
+     */
+    private static final int CHANGE_MODIFICATION = 1;
+    private static final int CHANGE_DELETION = 2;
+    private static final int CHANGE_ADDITION = 3;
+
+    /**
      * Finds the next matching line to determine change type.
      *
      * @param original original lines
      * @param modified modified lines
      * @param origIdx current original index
      * @param modIdx current modified index
-     * @return 1 for modification, 2 for deletion, 3 for addition
+     * @return CHANGE_MODIFICATION, CHANGE_DELETION, or CHANGE_ADDITION
      */
     private int findNextMatch(String[] original, String[] modified, int origIdx, int modIdx) {
         // Look ahead to find if next original matches current modified
         if (origIdx + 1 < original.length && original[origIdx + 1].equals(modified[modIdx])) {
-            return 2; // Deletion
+            return CHANGE_DELETION;
         }
         // Look ahead to find if current original matches next modified
         if (modIdx + 1 < modified.length && original[origIdx].equals(modified[modIdx + 1])) {
-            return 3; // Addition
+            return CHANGE_ADDITION;
         }
-        return 1; // Modification
+        return CHANGE_MODIFICATION;
     }
 
     /**
