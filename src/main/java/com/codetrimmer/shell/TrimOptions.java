@@ -18,6 +18,11 @@ public final class TrimOptions {
   private final boolean includeHidden;
   private final boolean backup;
   private final boolean noLimits;
+  private final String configFile;
+  private final String report;
+  private final String reportOutput;
+  private final String reportEndpoint;
+  private final boolean diff;
 
   private TrimOptions(Builder builder) {
     this.directory = builder.directory;
@@ -32,6 +37,11 @@ public final class TrimOptions {
     this.includeHidden = builder.includeHidden;
     this.backup = builder.backup;
     this.noLimits = builder.noLimits;
+    this.configFile = builder.configFile;
+    this.report = builder.report;
+    this.reportOutput = builder.reportOutput;
+    this.reportEndpoint = builder.reportEndpoint;
+    this.diff = builder.diff;
   }
 
   public static Builder builder() {
@@ -86,6 +96,26 @@ public final class TrimOptions {
     return noLimits;
   }
 
+  public String getConfigFile() {
+    return configFile;
+  }
+
+  public String getReport() {
+    return report;
+  }
+
+  public String getReportOutput() {
+    return reportOutput;
+  }
+
+  public String getReportEndpoint() {
+    return reportEndpoint;
+  }
+
+  public boolean isDiff() {
+    return diff;
+  }
+
   /**
    * Builder for TrimOptions to avoid constructor with many parameters.
    */
@@ -102,6 +132,11 @@ public final class TrimOptions {
     private boolean includeHidden;
     private boolean backup;
     private boolean noLimits;
+    private String configFile;
+    private String report;
+    private String reportOutput;
+    private String reportEndpoint;
+    private boolean diff;
 
     public Builder directory(String directory) {
       this.directory = directory;
@@ -160,6 +195,31 @@ public final class TrimOptions {
 
     public Builder noLimits(boolean noLimits) {
       this.noLimits = noLimits;
+      return this;
+    }
+
+    public Builder configFile(String configFile) {
+      this.configFile = configFile;
+      return this;
+    }
+
+    public Builder report(String report) {
+      this.report = report;
+      return this;
+    }
+
+    public Builder reportOutput(String reportOutput) {
+      this.reportOutput = reportOutput;
+      return this;
+    }
+
+    public Builder reportEndpoint(String reportEndpoint) {
+      this.reportEndpoint = reportEndpoint;
+      return this;
+    }
+
+    public Builder diff(boolean diff) {
+      this.diff = diff;
       return this;
     }
 
